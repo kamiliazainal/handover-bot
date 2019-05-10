@@ -9,6 +9,7 @@
 // import dependencies
 const bodyParser = require('body-parser'),
       express = require('express'),
+      request = require('request'),
       app = express();
 
 // import helper libs

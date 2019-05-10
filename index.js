@@ -13,8 +13,33 @@ const bodyParser = require('body-parser'),
 
 // import helper libs
 const sendQuickReply = require('./utils/quick-reply'),
-      HandoverProtocol = require('./utils/handover-protocol'),
-      env = require('./env');
+      HandoverProtocol = require('./utils/handover-protocol');
+      
+      app.set('port', process.env.PORT || 5000);
+app.use(bodyParser.json({ verify: verifyRequestSignature }));
+app.use(express.static('public'));
+
+/*
+ * Be sure to setup your config values before running this code. You can 
+ * set them using environment variables 
+ *
+ */
+
+// App Secret can be retrieved from the App Dashboard
+const APP_SECRET = process.env.APP_SECRET ;
+
+// Arbitrary value used to validate a webhook
+const VALIDATION_TOKEN = process.env.VALIDATION_TOKEN;
+
+// Generate a page access token for your page from the App Dashboard
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
+if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN)) {
+  console.error("Missing config values");
+  process.exit(1);
+}
+      //************************************************************************************************************
+   /*   env = require('./env');
 
 // webhook setup
 app.listen(process.env.PORT || env.PORT || 1337, () => console.log('webhook is listening'));
@@ -27,7 +52,8 @@ app.get('/webhook', (req, res) => {
     res.send(req.query['hub.challenge']);
   }
 });
-
+*/
+      //*****************************************************************************************************************
 // webhook
 app.post('/webhook', (req, res) => {
 
